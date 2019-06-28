@@ -1,0 +1,35 @@
+#!/bin/zsh
+
+main() {
+  if [ $# -eq 0 ]; then
+    operation $@
+  else
+    exec-command $@
+  fi
+}
+
+operation() {
+  echo operation
+}
+
+exec-command() {
+  case $1 in
+    log|checkout)
+      func="git-extended-$1"
+      $func ${@:2}
+      ;;
+    help)
+      help
+      ;;
+    *)
+      echo "$1???"
+  esac
+}
+
+help() {
+  cat <<EOF
+git extended: Usage
+EOF
+}
+
+main $@
