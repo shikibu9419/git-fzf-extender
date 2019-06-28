@@ -1,8 +1,8 @@
 ## Git FZF Extender
 
-A plugin to extend your git.
+A git extender plugin with fzf.
 
-This plugin dependents on [fzf](https://github.com/junegunn/fzf).
+This plugin depends on [fzf](https://github.com/junegunn/fzf).
 
 ## Installation
 
