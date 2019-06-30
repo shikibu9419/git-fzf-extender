@@ -6,7 +6,8 @@ git-extended-stash() {
              cut -d' ' -f1 | cut -d: -f1)
 
   if printf "Apply: $selected. OK?: "; read -q; then
+    echo
     git stash apply $selected
-    echo 'Done.'
+    echo 'Apply done.'
   fi
 }

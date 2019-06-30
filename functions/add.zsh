@@ -4,8 +4,8 @@ git-extended-add() {
              cut -d' ' -f3 |
              tr '\n' ' ')
 
-  if [ -z $selected ] && return 0
+  [ -z $selected ] && return 0
 
-  git add $=selected
+  git add $@ $=selected
   echo "Added: $selected"
 }
