@@ -15,8 +15,7 @@ operation() {
 exec-command() {
   case $1 in
     log|checkout)
-      func="git-extended-$1"
-      $func ${@:2}
+      git-extended-$1 ${@:2}
       ;;
     help)
       help
@@ -28,7 +27,7 @@ exec-command() {
 
 help() {
   cat <<EOF
-git extended: Usage
+git fzf: Usage
 EOF
 }
 
