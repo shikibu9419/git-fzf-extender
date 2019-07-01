@@ -1,5 +1,5 @@
 git-extended-log() {
-  local prev_cmd="echo {} | cut -d' ' -f2 | xargs -I % sh -c 'git show --color=always % | less -R'"
+  local prev_cmd="echo {} | cut -d' ' -f2 | xargs git show --color=always | less -R"
 
   git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" $@ |
     fzf --ansi --no-sort --reverse --tiebreak=index \
