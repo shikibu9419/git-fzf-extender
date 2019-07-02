@@ -9,11 +9,13 @@ __git_extended::init() {
   FZF='fzf --ansi --no-sort --reverse'
   FZF_TMUX='fzf-tmux --ansi --no-sort -d'
 
-  __git_extended::check_available
+  __git_extended::check-available
 }
 
-__git_extended::check_available() {
-  git rev-parse > /dev/null 2>&1
+__git_extended::check-available() {
+  git rev-parse > /dev/null 2>&1 &&
+    type 'fzf' > /dev/null 2>&1 &&
+    type 'hub' > /dev/null 2>&1
 }
 
 __git_extended::error() {
