@@ -1,10 +1,3 @@
-readonly GREEN='\033[32m'
-readonly YELLOW='\033[33m'
-readonly BLUE='\033[34m'
-readonly MAGENTA='\033[35m'
-readonly BOLD='\033[1m'
-readonly DEFAULT='\033[m'
-
 git-extended-issue() {
   [[ $1 = create ]] \
     && __git_extended::create_issue \
@@ -12,6 +5,7 @@ git-extended-issue() {
 }
 
 __git_extended::list_issue() {
+  __git_extended::init
   stts=${1:-open}
 
   opts="$(unbuffer hub issue -s $stts | sed 's/ *#/#/')"
@@ -36,6 +30,7 @@ __git_extended::list_issue() {
 }
 
 __git_extended::create_issue() {
+  __git_extended::init
   echo "${BOLD}--- CREATE MODE ---${DEFAULT}"
 
   printf 'Message: '; read msg
@@ -54,5 +49,3 @@ __git_extended::create_issue() {
     && echo 'Done!' \
     || echo 'Failed...'
 }
-
-git-extended-issue
