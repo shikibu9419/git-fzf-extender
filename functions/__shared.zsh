@@ -1,0 +1,21 @@
+__git_extended::init() {
+  GREEN='\033[32m'
+  YELLOW='\033[33m'
+  BLUE='\033[34m'
+  MAGENTA='\033[35m'
+  BOLD='\033[1m'
+  DEFAULT='\033[m'
+
+  FZF='fzf --ansi --no-sort --reverse'
+  FZF_TMUX='fzf-tmux --ansi --no-sort -d'
+
+  __git_extended::check_available
+}
+
+__git_extended::check_available() {
+  git rev-parse > /dev/null 2>&1
+}
+
+__git_extended::error() {
+  echo 'ERROR MESSAGE'
+}

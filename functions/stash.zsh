@@ -1,9 +1,11 @@
 git-extended-stash() {
+  __git_extended::init || { __git_extended::error; return 1 }
+
   local prev_cmd="echo {} | cut -d: -f1 | xargs -I % git stash show % -p --color"
 
   selected=$(git stash list |
              cut -d' ' -f1,6- |
-             fzf --reverse --ansi --preview=$prev_cmd |
+             $=FZF --preview=$prev_cmd |
              cut -d' ' -f1 | cut -d: -f1)
 
   if printf "Apply: $selected. OK?: "; read -q; then

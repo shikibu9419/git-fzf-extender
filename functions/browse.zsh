@@ -1,5 +1,6 @@
 git-extended-browse() {
-  selected=$(ghq list | fzf-tmux -m | tr '\n' ' ')
+  __git_extended::init || __git_extended::error && return 1
+  selected=$(ghq list | $=FZF_TMUX -m | tr '\n' ' ')
 
   for dir in $=selected; do
     repo=${dir#*/}
