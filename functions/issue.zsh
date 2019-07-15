@@ -45,7 +45,7 @@ __git_extended::create_issue() {
 
   printf 'Labels: '
   selected=$(unbuffer hub issue labels |
-             $=FZF --prompt=$prompt_msg |
+             $=FZF -m --prompt=$prompt_msg |
              tr '\n' ',' | sed -e 's/ *//g' -e 's/,$//')
   echo $selected
 
