@@ -16,7 +16,9 @@ __git_extended::list_pr() {
     [ $stts = open ] && prs=$open_prs || prs=$closed_prs
 
     prompt_msg="Select PR ($stts)> "
-    selected=$(echo -e "$prs\n$opts" | sed '/^$/d' | $=FZF --prompt=$prompt_msg)
+    selected=$(echo -e "$prs\n$opts" | sed '/^$/d' |
+               $=FZF --prompt=$prompt_msg
+                     --bind "ctrl-l:execute(echo {} | cut -d' ' -f1 | cut -b 2- | hub pr checkout)")
 
     case "$selected" in
       '<->'*)
@@ -43,7 +45,7 @@ __git_extended::create_pr() {
     printf 'template: '
     local prompt_msg='SELECT TEMPLATE> '
     local prev_cmd="less -R $TEMPLATE_ROOT/{}"
-    template=$(ls $GIT_ROOT.github/PULL_REQUEST* | xargs -I % sh -c 'basename %' |
+    template=$(ls $TEMPLATE_ROOT/PULL_REQUEST* | xargs -I % sh -c 'basename %' |
               $=FZF --prompt=$prompt_msg --preview=$prev_cmd)
     echo $template
   fi

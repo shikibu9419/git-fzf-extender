@@ -5,3 +5,4 @@ for f in $repo_dir/functions/*.zsh; do
 done
 
 export PATH=$repo_dir/bin:$PATH
+export GITHUB_TEMPLATES_PATH=.github
