@@ -52,7 +52,6 @@ __git_extended::create_pr() {
               $=FZF --prompt=$prompt_msg --preview=$prev_cmd)
     echo $template
   fi
-
   if [[ -z $template ]]; then
     printf 'Message: '; read msg
   fi

@@ -15,7 +15,7 @@ __git_extended::list_issue() {
   while true ; do
     [ $stts = open ] && issues=$open_issues || issues=$closed_issues
 
-    prompt_msg="Select issue ($stts)> "
+    prompt_msg="SELECT ISSUE ($stts)> "
     selected=$(echo -e "$issues\n$opts" | sed '/^$/d' | $=FZF --prompt=$prompt_msg)
 
     case "$selected" in
@@ -37,11 +37,24 @@ __git_extended::list_issue() {
 }
 
 __git_extended::create_issue() {
+  GIT_ROOT=$(git rev-parse --show-cdup)
+  TEMPLATES_ROOT=${GIT_ROOT}${GITHUB_TEMPLATES_PATH}
+
   prompt_msg='SELECT LABEL> '
 
   echo "${BOLD}--- CREATE MODE ---${DEFAULT}"
 
-  printf 'Message: '; read msg
+  if [ -d $TEMPLATES_ROOT ] && [ -f $TEMPLATES_ROOT/*ISSUE* ]; then
+    printf 'Template: '
+    local prompt_msg='SELECT TEMPLATE> '
+    local prev_cmd="less -R $TEMPLATES_ROOT/{}"
+    template=$(ls $TEMPLATES_ROOT/ISSUE* | xargs -I % sh -c 'basename %' |
+              $=FZF --prompt=$prompt_msg --preview=$prev_cmd)
+    echo $template
+  fi
+  if [[ -z $template ]]; then
+    printf 'Message: '; read msg
+  fi
 
   printf 'Labels: '
   selected=$(unbuffer hub issue labels |
