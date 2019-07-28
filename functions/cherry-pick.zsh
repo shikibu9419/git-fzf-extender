@@ -18,7 +18,7 @@ git-extended-cherry-pick() {
 
   if printf "Cherry pick: $selected. OK?: "; read -q; then
     echo
-    git cherry-pick $selected
+    git cherry-pick $=selected
     echo 'Cherry pick done.'
   fi
 }

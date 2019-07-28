@@ -15,7 +15,7 @@ __git_extended::list_pr() {
   while true ; do
     [ $stts = open ] && prs=$open_prs || prs=$closed_prs
 
-    prompt_msg="Select PR ($stts)> "
+    prompt_msg="SELECT PR ($stts)> "
     selected=$(echo -e "$prs\n$opts" | sed '/^$/d' |
                $=FZF --prompt=$prompt_msg
                      --bind "ctrl-l:execute(echo {} | cut -d' ' -f1 | cut -b 2- | hub pr checkout)")
@@ -39,13 +39,16 @@ __git_extended::list_pr() {
 }
 
 __git_extended::create_pr() {
+  GIT_ROOT=$(git rev-parse --show-cdup)
+  TEMPLATES_ROOT=${GIT_ROOT}${GITHUB_TEMPLATES_PATH}
+
   echo "${BOLD}--- CREATE MODE ---${DEFAULT}"
 
-  if [ -d $TEMPLATE_ROOT ] && [ -f $TEMPLATE_ROOT/PULL_REQUEST* ]; then
-    printf 'template: '
+  if [ -d $TEMPLATES_ROOT ] && [ -f $TEMPLATES_ROOT/PULL_REQUEST* ]; then
+    printf 'Template: '
     local prompt_msg='SELECT TEMPLATE> '
-    local prev_cmd="less -R $TEMPLATE_ROOT/{}"
-    template=$(ls $TEMPLATE_ROOT/PULL_REQUEST* | xargs -I % sh -c 'basename %' |
+    local prev_cmd="less -R $TEMPLATES_ROOT/{}"
+    template=$(ls $TEMPLATES_ROOT/PULL_REQUEST* | xargs -I % sh -c 'basename %' |
               $=FZF --prompt=$prompt_msg --preview=$prev_cmd)
     echo $template
   fi
@@ -64,7 +67,7 @@ __git_extended::create_pr() {
   echo
   echo 'Creating PR...'
   label_opt=${selected:+-l $selected}
-  template_opt=${template:+-F $TEMPLATE_ROOT/$template --edit}
+  template_opt=${template:+-F $TEMPLATES_ROOT/$template --edit}
 
   hub pull-request ${msg:+-m $msg} $=template_opt $=label_opt \
     && echo 'Done!' \

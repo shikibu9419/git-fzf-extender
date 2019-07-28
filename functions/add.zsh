@@ -4,7 +4,6 @@ git-extended-add() {
   local prompt_msg="SELECT FILES> "
   local prev_cmd="echo {} | cut -d' ' -f3 | xargs git diff --color"
 
-#              sed '/^[DR].*$/d' |
   selected=$(git add -N -A; unbuffer git status -s |
              $=FZF -m --prompt=$prompt_msg --preview=$prev_cmd |
              cut -d' ' -f3 |

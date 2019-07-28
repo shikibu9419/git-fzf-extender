@@ -8,8 +8,6 @@ __git_extended::init() {
 
   FZF='fzf --ansi --no-sort --reverse'
   FZF_TMUX='fzf-tmux --ansi --no-sort -d'
-  GIT_ROOT=$(git rev-parse --show-cdup)
-  TEMPLATE_ROOT=${GIT_ROOT}${GITHUB_TEMPLATES_PATH}
 
   __git_extended::check-available
 }
