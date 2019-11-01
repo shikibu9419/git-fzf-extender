@@ -10,7 +10,6 @@ git-extended-add() {
              tr '\n' ' ')
 
   [[ -z $selected ]] && return 0
-  echo hoge
 
   git add $@ $=selected
   echo "Added: $selected"

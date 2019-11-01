@@ -14,8 +14,8 @@ __git_extended::init() {
 
 __git_extended::check-available() {
   git rev-parse > /dev/null 2>&1 &&
-    type 'fzf' > /dev/null 2>&1 &&
-    type 'hub' > /dev/null 2>&1
+    type 'fzf'  > /dev/null 2>&1 &&
+    type 'hub'  > /dev/null 2>&1
 }
 
 __git_extended::error() {

@@ -1,3 +1,4 @@
+# TODO: implement 'cherry-pick hoge..fuga'
 git-extended-cherry-pick() {
   __git_extended::init || { __git_extended::error; return 1 }
 
@@ -18,7 +19,9 @@ git-extended-cherry-pick() {
 
   if printf "Cherry pick: $selected. OK?: "; read -q; then
     echo
-    git cherry-pick $=selected
+    for commit in $=selected; do
+      git cherry-pick $commit
+    done
     echo 'Cherry pick done.'
   fi
 }

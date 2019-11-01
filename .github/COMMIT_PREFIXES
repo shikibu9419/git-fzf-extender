@@ -1,0 +1,14 @@
+# THESE PRIFIXES ARE INSPIRED BY: https://qiita.com/Jung0/items/0a9a7a97a2c17f92d3c5
+🎉 初めてのコミット（Initial Commit）
+🔖 バージョンタグ（Version Tag）
+✨ 新機能（New Feature）
+🐛 バグ修正（Bugfix）
+♻️  recycle: リファクタリング（Refactoring）
+📚 ドキュメント（Documentation）
+🎨 デザインUI/UX（Accessibility）
+🐎 パフォーマンス（Performance）
+🔧 ツール（Tooling）
+🚨 テスト（Tests）
+💩 非推奨追加（Deprecation）
+🗑️  削除（Removal）
+🚧 WIP（Work In Progress）
