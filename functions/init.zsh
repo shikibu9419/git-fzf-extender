@@ -1,34 +1,38 @@
 git-extended-init() {
-  stts='doing'
+  status='doing'
 
-  while [ $stts != 'done' ]; do
+  while [ $status != 'done' ]; do
     dir=${PWD##*/}
 
     # form
     printf "Repo name (default: '$dir'): "; read name
-    printf 'Description: '; read desc
-    printf 'Project page URL: '; read url
-    printf 'Will you make this private?: '; read -q && pri='-p'
+    printf 'Description (optional): '; read desc
+    printf 'Project page URL (optional): '; read url
+    printf 'Will you make this private? (y/n): '; read -q && pri='-p'
     echo
 
     [ -z $name ] && name=$dir
 
     # confirmation
-  echo -e "
-$BOLD---
-Repository: $name
-Description: $desc
-Project page URL: $url"
+  echo "$BOLD---"
+  echo "- Repository: $name"
+  echo "- Description: $desc"
+  echo "- Project page URL: $url"
+  [ -n $pri ] && echo '- Make private'
+  echo "$DEFAULT"
 
-    [ -n $pri ] && echo 'Make private'
-
-    echo "$DEFAULT"
-
-    printf 'OK?: '; read -q && stts='done'
+    printf 'OK? (y/n): '; read -q && status='done'
     echo
   done
 
-  git init && hub create "$name" ${desc:+-d "$desc"} ${url:+-h "$url"} ${pri:+"$pri"}
+  git init &&
+    hub create "$name" ${desc:+-d "$desc"} ${url:+-h "$url"} ${pri:+"$pri"} &&
+    __git_extended::init::create_readme
+}
 
-  [ -f 'README.md' ] || { echo "# ${PWD##*/}" >> README.md && echo 'README is not found. Created.' }
+__git_extended::create_readme() {
+  if [ -f 'README.md' ]; then
+    echo "# ${PWD##*/}" >> README.md &&
+      echo 'README.md is not found: created.'
+  fi
 }
