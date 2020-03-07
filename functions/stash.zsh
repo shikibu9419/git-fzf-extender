@@ -1,5 +1,5 @@
 git-extended-stash() {
-  __git_extended::init || { __git_extended::error; return 1 }
+  __git_extended::init || return 1
 
   local prev_cmd="echo {} | cut -d: -f1 | xargs -I % git stash show % -p --color"
 

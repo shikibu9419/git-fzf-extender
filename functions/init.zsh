@@ -1,4 +1,6 @@
 git-extended-init() {
+  __git_extended::init || return 1
+
   status='doing'
 
   while [ $status != 'done' ]; do

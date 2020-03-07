@@ -1,6 +1,6 @@
 # TODO: implement 'cherry-pick hoge..fuga'
 git-extended-cherry-pick() {
-  __git_extended::init || { __git_extended::error; return 1 }
+  __git_extended::init || return 1
 
   local prev_cmd="echo {} | cut -d' ' -f2 | xargs -I % sh -c 'git show --color=always % | less -R'"
   local prompt_msg1='SELECT SOURCE BRANCH> '

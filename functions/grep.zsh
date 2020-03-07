@@ -1,5 +1,5 @@
 git-extended-grep() {
-  __git_extended::init || { __git_extended::error; return 1 }
+  __git_extended::init || return 1
 
   [[ -z $1 ]] && return
   prev_cmd="set {}; highlight --force -O ansi -n {1} | grep --color=always -e $ -e $1"

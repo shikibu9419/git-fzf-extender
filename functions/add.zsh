@@ -1,5 +1,5 @@
 git-extended-add() {
-  __git_extended::init || { __git_extended::error; return 1 }
+  __git_extended::init || return 1
 
   local prompt_msg="SELECT FILES> "
   local prev_cmd="echo {} | cut -d' ' -f3 | xargs git diff --color"

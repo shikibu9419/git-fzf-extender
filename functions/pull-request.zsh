@@ -1,5 +1,5 @@
 git-extended-pull-request() {
-  __git_extended::init || { __git_extended::error; return 1 }
+  __git_extended::init || return 1
 
   [[ $1 = create ]] \
     && __git_extended::create_pr \

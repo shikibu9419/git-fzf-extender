@@ -1,5 +1,5 @@
 git-extended-commit() {
-  __git_extended::init || { __git_extended::error; return 1 }
+  __git_extended::init || return 1
 
   GIT_ROOT=$(git rev-parse --show-cdup)
   TEMPLATES_ROOT=${GIT_ROOT}${GITHUB_TEMPLATES_PATH}

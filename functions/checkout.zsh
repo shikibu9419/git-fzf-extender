@@ -1,5 +1,5 @@
 git-extended-checkout() {
-  __git_extended::init || { __git_extended::error; return 1 }
+  __git_extended::init || return 1
 
   branch=$(git branch --all | grep -v HEAD |
            $=FZF_TMUX |
