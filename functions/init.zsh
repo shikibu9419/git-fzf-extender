@@ -1,9 +1,9 @@
 git-extended-init() {
-  __git_extended::init || return 1
+  __git_extended::check-availability || return 1
 
-  status='doing'
+  stts='doing'
 
-  while [ $status != 'done' ]; do
+  while [ $stts != 'done' ]; do
     dir=${PWD##*/}
 
     # form
@@ -23,7 +23,7 @@ git-extended-init() {
   [ -n $pri ] && echo '- Make private'
   echo "$DEFAULT"
 
-    printf 'OK? (y/n): '; read -q && status='done'
+    printf 'OK? (y/n): '; read -q && stts='done'
     echo
   done
 
@@ -32,7 +32,7 @@ git-extended-init() {
     __git_extended::init::create_readme
 }
 
-__git_extended::create_readme() {
+__git_extended::init::create_readme() {
   if [ -f 'README.md' ]; then
     echo "# ${PWD##*/}" >> README.md &&
       echo 'README.md is not found: created.'
